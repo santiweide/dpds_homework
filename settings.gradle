@@ -1,0 +1,4 @@
+rootProject.name = 'hw3'
+include 'my-server'
+include 'my-server'
+
