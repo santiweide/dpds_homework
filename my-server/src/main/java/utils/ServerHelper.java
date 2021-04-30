@@ -54,7 +54,7 @@ public class ServerHelper {
                 out.write(buffer, 0, file.read(buffer));
             }
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 }

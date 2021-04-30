@@ -16,7 +16,7 @@ class Worker extends Thread {
 
     @Override
     public void run() {
-        String wwwhome = "D:\\test_src";
+        String wwwhome = "D:\\coding\\distribute_system\\hw3\\my-server\\src\\main\\resources";
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             OutputStream out = new BufferedOutputStream(sock.getOutputStream());
@@ -28,12 +28,12 @@ class Worker extends Thread {
                 return;
             }
             ServerHelper.log(sock, request);
-//            while (true) {
-//                String misc = in.readLine();
-//                if (misc == null || misc.length() == 0) {
-//                    break;
-//                }
-//            }
+            while (true) {
+                String misc = in.readLine();
+                if (misc == null || misc.length() == 0) {
+                    break;
+                }
+            }
             // parse the line
             boolean GETRequest = request.startsWith("GET");
             boolean isHttp1 = request.endsWith("HTTP/1.0") || request.endsWith("HTTP/1.1");
@@ -50,6 +50,11 @@ class Worker extends Thread {
                     ServerHelper.errorReport(pout, sock, "403", "Forbidden",
                             "You don't have permission to access the requested URL.");
                 } else {
+                    if ("/quit".equals(req)) {
+                        out.flush();
+                        MyWebServer.stop = true;
+                        return;
+                    }
                     String path = wwwhome + "\\" + req;
                     File f = new File(path);
                     if (f.isDirectory() && !path.endsWith("/")) {
@@ -71,7 +76,7 @@ class Worker extends Thread {
                             pout.print("HTTP/1.0 200 OK\r\n" +
                                     "Content-Type: " + ServerHelper.guessContentType(path) + "\r\n" +
                                     "Date: " + new Date() + "\r\n" +
-                                    "Server: FileServer 1.0\r\n\r\n");
+                                    "Server: MyWebServer 1.0\r\n\r\n");
                             // send raw file
                             ServerHelper.sendFile(file, out);
                             ServerHelper.log(sock, "200 OK");
@@ -96,16 +101,21 @@ class Worker extends Thread {
  * @author algorithm
  */
 public class MyWebServer {
-    public static void main(String args[]) throws IOException {
+    public static boolean stop = false;
 
+    public static void main(String args[]) throws IOException {
+        Socket socket = null;
         ServerSocket serverSocket = new ServerSocket(MyConsts.DEFAULT_IP_PORT, MyConsts.QUEUE_LENGTH);
-        while (true) {
+        while (!stop) {
             try {
-                Socket socket = serverSocket.accept();
+                socket = serverSocket.accept();
                 new Worker(socket).start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        if (socket != null) {
+            socket.close();
         }
     }
 }
