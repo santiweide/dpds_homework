@@ -1,4 +1,4 @@
-package com.bc.utils;
+package com.bc.http;
 
 import java.io.IOException;
 import java.io.InputStream;

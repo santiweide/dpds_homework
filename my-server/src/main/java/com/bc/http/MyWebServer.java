@@ -1,6 +1,4 @@
-
-import com.bc.utils.MyConsts;
-import com.bc.utils.ServerHelper;
+package com.bc.http;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -76,7 +74,7 @@ class Worker extends Thread {
                             pout.print("HTTP/1.0 200 OK\r\n" +
                                     "Content-Type: " + ServerHelper.guessContentType(path) + "\r\n" +
                                     "Date: " + new Date() + "\r\n" +
-                                    "Server: MyWebServer 1.0\r\n\r\n");
+                                    "Server: com.bc.http.MyWebServer 1.0\r\n\r\n");
                             // send raw file
                             ServerHelper.sendFile(file, out);
                             ServerHelper.log(sock, "200 OK");
@@ -96,7 +94,7 @@ class Worker extends Thread {
 }
 
 /**
- * todo MyWebServer compiles as one file. "javac *.java" in one directory compiles all code.
+ * todo com.bc.http.MyWebServer compiles as one file. "javac *.java" in one directory compiles all code.
  *
  * @author algorithm
  */
@@ -105,7 +103,7 @@ public class MyWebServer {
 
     public static void main(String args[]) throws IOException {
         Socket socket = null;
-        ServerSocket serverSocket = new ServerSocket(MyConsts.DEFAULT_IP_PORT, MyConsts.QUEUE_LENGTH);
+        ServerSocket serverSocket = new ServerSocket(MyConstants.DEFAULT_IP_PORT, MyConstants.QUEUE_LENGTH);
         while (!stop) {
             try {
                 socket = serverSocket.accept();

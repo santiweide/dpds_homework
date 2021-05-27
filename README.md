@@ -14,7 +14,7 @@ Enter text to send to the com.bc.server, <stop> to end: stop
 HTTP/1.0 200 OK
 Content-Type: text/plain
 Date: Fri Apr 30 20:58:51 CST 2021
-Server: MyWebServer 1.0
+Server: com.bc.http.MyWebServer 1.0
 
 DOG Spirits!
 dog 111111 dpg
