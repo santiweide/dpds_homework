@@ -1,4 +1,5 @@
 rootProject.name = 'hw3'
-include 'my-server'
-include 'my-server'
+include 'my-com.bc.server'
+include 'my-com.bc.server'
+include 'mini-blockchain'
 

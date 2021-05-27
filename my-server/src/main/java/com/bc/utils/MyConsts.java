@@ -1,4 +1,4 @@
-package utils;
+package com.bc.utils;
 
 /**
  * @author algorithm

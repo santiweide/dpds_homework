@@ -1,6 +1,6 @@
 
-import utils.MyConsts;
-import utils.ServerHelper;
+import com.bc.utils.MyConsts;
+import com.bc.utils.ServerHelper;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -16,7 +16,7 @@ class Worker extends Thread {
 
     @Override
     public void run() {
-        String wwwhome = "D:\\coding\\distribute_system\\hw3\\my-server\\src\\main\\resources";
+        String wwwhome = "D:\\coding\\distribute_system\\hw3\\my-com.bc.server\\src\\main\\resources";
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             OutputStream out = new BufferedOutputStream(sock.getOutputStream());
@@ -41,7 +41,7 @@ class Worker extends Thread {
                 // bad request
                 ServerHelper.errorReport(pout, sock, "400", "Bad Request",
                         "Your browser sent a request that " +
-                                "this server could not understand.");
+                                "this com.bc.server could not understand.");
             } else {
                 String req = request.substring(4, request.length() - 9).trim();
                 if (req.contains("..") ||
@@ -83,7 +83,7 @@ class Worker extends Thread {
                         } catch (FileNotFoundException e) {
                             // file not found
                             ServerHelper.errorReport(pout, sock, "404", "Not Found",
-                                    "The requested URL was not found on this server.");
+                                    "The requested URL was not found on this com.bc.server.");
                         }
                     }
                 }
