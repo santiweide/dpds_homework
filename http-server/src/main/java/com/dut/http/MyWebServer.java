@@ -1,4 +1,4 @@
-package com.bc.http;
+package com.dut.http;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -100,7 +100,10 @@ class Worker extends Thread {
  */
 public class MyWebServer {
     public static boolean stop = false;
-
+    interface MyConstants {
+        int DEFAULT_IP_PORT = 2540;
+        int QUEUE_LENGTH = 6;
+    }
     public static void main(String args[]) throws IOException {
         Socket socket = null;
         ServerSocket serverSocket = new ServerSocket(MyConstants.DEFAULT_IP_PORT, MyConstants.QUEUE_LENGTH);

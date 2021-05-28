@@ -1,4 +1,4 @@
-package com.bc.http;
+package com.dut.http;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ public class ServerHelper {
     }
 
     public static void errorReport(PrintStream pout, Socket connection,
-                                    String code, String title, String msg) {
+                                   String code, String title, String msg) {
         pout.print("HTTP/1.0 " + code + " " + title + "\r\n" +
                 "\r\n" +
                 "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\r\n" +
