@@ -1,17 +1,18 @@
-package com.bc.model;
+package com.dut.model;
 
 
 import java.io.Serializable;
-import java.util.UUID;
 
 
 public class BlockRecord implements Serializable{
     /* Examples of block fields. You should pick, and justify, your own set: */
+    Integer BlockIdVersion;
+    Integer CreatingProcessId;
+
     String BlockID;
     String TimeStamp;
     String VerificationProcessID;
     String PreviousHash; // We'll copy from previous block
-    UUID uuid; // Just to show how JSON marshals this binary data.
     String Fname;
     String Lname;
     String SSNum;
@@ -22,6 +23,21 @@ public class BlockRecord implements Serializable{
     String Treat;
     String Rx;
 
+    public Integer getBlockIdVersion() {
+        return BlockIdVersion;
+    }
+
+    public void setBlockIdVersion(Integer blockIdVersion) {
+        this.BlockIdVersion = blockIdVersion;
+    }
+
+    public Integer getCreatingProcessId() {
+        return CreatingProcessId;
+    }
+
+    public void setCreatingProcessId(Integer creatingProcessId) {
+        CreatingProcessId = creatingProcessId;
+    }
     /* Examples of accessors for the BlockRecord fields: */
     public String getBlockID() {
         return BlockID;
@@ -55,13 +71,6 @@ public class BlockRecord implements Serializable{
         this.PreviousHash = PH;
     }
 
-    public UUID getUUID() {
-        return uuid;
-    } // Later will show how JSON marshals as a string. Compare to BlockID.
-
-    public void setUUID(UUID ud) {
-        this.uuid = ud;
-    }
 
     public String getLname() {
         return Lname;

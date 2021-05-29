@@ -1,16 +1,14 @@
-package com.bc;
+package com.dut;
 
-import com.bc.model.BlockRecord;
-import com.bc.server.BlockchainServer;
-import com.bc.server.PublicKeyServer;
-import com.bc.server.UnverifiedBlockConsumer;
-import com.bc.server.UnverifiedBlockServer;
-import com.bc.utils.BlockInputG;
+import com.dut.model.BlockRecord;
+import com.dut.server.BlockchainServer;
+import com.dut.server.PublicKeyServer;
+import com.dut.server.UnverifiedBlockConsumer;
+import com.dut.server.UnverifiedBlockServer;
+import com.dut.utils.BlockInputG;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -82,14 +80,13 @@ public class BlockChain {
         try {
             // Each process reads in a data file 每个进程只读取自己进程ID的那一个文件
             BlockRecord unverifiedBR = BlockInputG.getBlockRecordFromFile(PID).get(0);
+            // The completed unverified block is marshaled as JSON
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            // Convert the Java object to a JSON String:
             String unverifiedBRStr = gson.toJson(unverifiedBR);
-
-            // Stream for sending Java objects
+            // multicast to all processes at the correct unverified block port, including to the creating process itself
             ObjectOutputStream toServerOOS;
             for (int i = 0; i < numProcesses; i++) {
-                // 组播，Send some sample Unverified Blocks (UVBs) to each process
+                // 组播，Send some sample Unverified Blocks (UVBs) to each process,
                 System.out.println("Sending UVBs to process " + i + "...");
                 // Client connection. Triggers Unverified Block Worker in other process's UVB server:
                 UVBSocket = new Socket(serverName, Ports.UnverifiedBlockServerPortBase + i);

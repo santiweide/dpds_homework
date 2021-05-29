@@ -1,4 +1,4 @@
-package com.bc.model;
+package com.dut.model;
 
 /**
  * @author algorithm

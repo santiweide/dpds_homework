@@ -1,4 +1,4 @@
-package com.bc;
+package com.dut;
 
 /**
  * @author algorithm

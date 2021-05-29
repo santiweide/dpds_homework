@@ -1,8 +1,8 @@
-package com.bc.server;
+package com.dut.server;
 
-import com.bc.Ports;
-import com.bc.model.BlockRecord;
-import com.bc.utils.MyConsts;
+import com.dut.Ports;
+import com.dut.model.BlockRecord;
+import com.dut.utils.MyConsts;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,9 +34,8 @@ public class UnverifiedBlockServer implements Runnable {
         return s1.compareTo(s2);
     };
 
-      /* Inner class to share priority queue. We are going to place the unverified blocks (UVBs) into this queue in the order
-       we get them, but they will be retrieved by a consumer process sorted by TimeStamp of when created. */
-
+    // In each process that receives them, unmarshal each block back into a java object,
+    // and then place each block into a concurrent priority queue, sorted by the timestamp for when the block was created.
     class UnverifiedBlockWorker extends Thread {
         Socket sock;
 

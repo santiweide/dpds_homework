@@ -1,9 +1,9 @@
-package com.bc.server;
+package com.dut.server;
 
-import com.bc.Ports;
-import com.bc.model.ProcessBlock;
-import com.bc.model.PublicKey;
-import com.bc.utils.MyConsts;
+import com.dut.Ports;
+import com.dut.model.ProcessBlock;
+import com.dut.model.PublicKey;
+import com.dut.utils.MyConsts;
 
 import java.io.BufferedReader;
 import java.io.IOException;

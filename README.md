@@ -5,16 +5,16 @@ ATTENTION: Results could be sorted into http-streams.txt
 test for dog.txt with return log: 
 
 ```bash
-Using com.bc.server: localhost, Port: 2540
-Enter text to send to the com.bc.server, <stop> to end: GET /dog.txt HTTP/1.1
-Enter text to send to the com.bc.server, <stop> to end: Host: localhost:2540
-Enter text to send to the com.bc.server, <stop> to end: 
-Enter text to send to the com.bc.server, <stop> to end: 
-Enter text to send to the com.bc.server, <stop> to end: stop
+Using com.dut.server: localhost, Port: 2540
+Enter text to send to the com.dut.server, <stop> to end: GET /dog.txt HTTP/1.1
+Enter text to send to the com.dut.server, <stop> to end: Host: localhost:2540
+Enter text to send to the com.dut.server, <stop> to end: 
+Enter text to send to the com.dut.server, <stop> to end: 
+Enter text to send to the com.dut.server, <stop> to end: stop
 HTTP/1.0 200 OK
 Content-Type: text/plain
 Date: Fri Apr 30 20:58:51 CST 2021
-Server: com.bc.http.MyWebServer 1.0
+Server: com.dut.http.MyWebServer 1.0
 
 DOG Spirits!
 dog 111111 dpg
