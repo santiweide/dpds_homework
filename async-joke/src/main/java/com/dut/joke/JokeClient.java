@@ -94,7 +94,7 @@ class Monitor {
 public class JokeClient {
     public static void main(String[] args) {
         Monitor monitor = new Monitor();
-        monitor.setServer("", Arrays.asList(args));
+        monitor.setServer(JokeConsts.CLIENT_NAME, Arrays.asList(args));
 
         AddressInfo addressInfo = monitor.getServerInfo(JokeConsts.CLIENT_NAME);
 

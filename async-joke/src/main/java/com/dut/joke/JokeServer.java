@@ -64,14 +64,19 @@ class Worker extends Thread {
  */
 public class JokeServer {
 
-    public static void main(String a[]) throws IOException {
-
+    public static void main(String[] args) throws IOException {
         Socket sock;
-        ServerSocket servsock = new ServerSocket(JokeConsts.SERVER_CLIENT_PORT, JokeConsts.SOCKET_BLOCK_QUEUE_LEN);
-        System.out.println
-                ("Clark Elliott's Inet server 1.8 starting up, listening at port " + JokeConsts.SERVER_CLIENT_PORT + ".\n");
+        int port;
+        if(args.length > 0 && "secondary".equals(args[0])){
+            port = JokeConsts.SERVER_CLIENT_PORT_SECONDARY;
+        } else {
+            port = JokeConsts.SERVER_CLIENT_PORT;
+        }
+        ServerSocket serverSocket = new ServerSocket(port, JokeConsts.SOCKET_BLOCK_QUEUE_LEN);
+
+        System.out.println("Santiweide's Joke server 0.1 starting up, listening at port " + port + ".\n");
         while (true) {
-            sock = servsock.accept();
+            sock = serverSocket.accept();
             new Worker(sock).start();
         }
     }
