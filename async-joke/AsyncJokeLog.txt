@@ -1,0 +1,14 @@
+ASync Santiweide's Joke Client, 0.1.
+
+Press Return for joke or proverb:
+'Client port: 50433
+Getting a joke or proverb from server...
+Get from server: JA
+Enter numbers to sum:
+23
+456
+Your Sum is: 479
+
+Starting Santiweide Aysnc Joke Server
+'Server receive client port: 50433
+Giving back JA
