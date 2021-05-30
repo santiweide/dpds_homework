@@ -40,14 +40,9 @@ class AddressInfo {
 }
 
 class Monitor {
-    private final Map<String, List<AddressInfo>> serverIpMap = new ConcurrentHashMap<>();
+    private static final Map<String, List<AddressInfo>> serverIpMap = new ConcurrentHashMap<>();
 
-    public Monitor() {
-        serverIpMap.put(JokeConsts.CLIENT_NAME, new ArrayList<>());
-        serverIpMap.put(JokeConsts.CLIENT_ADMIN_NAME, new ArrayList<>());
-    }
-
-    public AddressInfo getServerInfo(String clientName) {
+    public static AddressInfo getServerInfo(String clientName) {
         AddressInfo ret = new AddressInfo();
         List<AddressInfo> serverNameList = serverIpMap.get(clientName);
 
@@ -65,7 +60,8 @@ class Monitor {
 
     }
 
-    public void setServer(String name, List<String> servers) {
+    public static void setServer(String name, List<String> servers) {
+        serverIpMap.put(name, new ArrayList<>());
         if (servers.size() > 1) {
             AddressInfo info = new AddressInfo();
             info.setHost(servers.get(1));
@@ -93,10 +89,9 @@ class Monitor {
  */
 public class JokeClient {
     public static void main(String[] args) {
-        Monitor monitor = new Monitor();
-        monitor.setServer(JokeConsts.CLIENT_NAME, Arrays.asList(args));
+        Monitor.setServer(JokeConsts.CLIENT_NAME, Arrays.asList(args));
 
-        AddressInfo addressInfo = monitor.getServerInfo(JokeConsts.CLIENT_NAME);
+        AddressInfo addressInfo = Monitor.getServerInfo(JokeConsts.CLIENT_NAME);
 
         System.out.println("Santiweide's Joke Client, 0.1.\n");
         System.out.println("Using server: " + addressInfo.getHost() + ", Port: " + addressInfo.getPort());
