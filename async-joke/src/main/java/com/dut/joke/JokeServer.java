@@ -22,13 +22,13 @@ class WorkerData {
         Collections.shuffle(list);
     }
 
-    public Character getNextChar() {
+    public Character getNextChar(String name) {
         Character ret;
         if(pos == 0){
             if(first){
                 first = false;
             } else {
-                System.out.println( JokeServer.serverMode?"PROVERB":"JOKE"+ " CYCLE COMPLETED");
+                System.out.println( name + "'s "  + (JokeServer.serverMode?"PROVERB":"JOKE")+ " CYCLE COMPLETED");
             }
         }
         ret = _map.get(list.get(pos));
@@ -60,7 +60,9 @@ class Worker extends Thread {
             out = new PrintStream(sock.getOutputStream());
             try {
                 String clientName = in.readLine();
-                JokeServer.socketDataMap.put(clientName, new WorkerData());
+                if(!JokeServer.socketDataMap.containsKey(clientName)){
+                    JokeServer.socketDataMap.put(clientName, new WorkerData());
+                }
                 serveData(clientName, out);
             } catch (IOException x) {
                 System.out.println("Server read client name error");
@@ -75,7 +77,7 @@ class Worker extends Thread {
     private void serveData(String name, PrintStream out) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(JokeServer.serverMode ? "P" : "J");
-        stringBuilder.append(JokeServer.socketDataMap.get(name).getNextChar());
+        stringBuilder.append(JokeServer.socketDataMap.get(name).getNextChar(name));
         stringBuilder.append(" ").append(name);
         out.println(stringBuilder.toString());
         System.out.println("Data: " + stringBuilder.toString());
