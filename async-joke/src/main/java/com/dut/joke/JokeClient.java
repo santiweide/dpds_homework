@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import com.google.common.collect.ImmutableMap;
 
 interface JokeConsts {
     int SERVER_CLIENT_PORT = 4545;
@@ -97,43 +98,26 @@ public class JokeClient {
         System.out.println("Using server: " + addressInfo.getHost() + ", Port: " + addressInfo.getPort());
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         try {
-            String name;
-            for (; ; ) {
-                System.out.print("Enter a hostname or an IP address, (quit) to end: ");
-                System.out.flush();
-                name = in.readLine();
-                if (!name.contains("quit")) {
-                    getRemoteAddress(name, addressInfo.getHost());
-                } else {
-                    break;
-                }
+            System.out.print("Plz Enter Client Name, (quit) to end: ");
+            System.out.flush();
+            String name = in.readLine();
+            for (;;) {
+                transData(name, addressInfo.getHost());
             }
-            System.out.println("Cancelled by user request.");
         } catch (IOException x) {
             x.printStackTrace();
         }
     }
 
-    static String toText(byte ip[]) { /* Make portable for 128 bit format */
-        StringBuffer result = new StringBuffer();
-        for (int i = 0; i < ip.length; ++i) {
-            if (i > 0) {
-                result.append(".");
-            }
-            result.append(0xff & ip[i]);
-        }
-        return result.toString();
-    }
 
-    static void getRemoteAddress(String name, String serverName) {
+    static void transData(String name, String serverName) {
         Socket sock;
         BufferedReader fromServer;
         PrintStream toServer;
         String textFromServer;
         try {
             sock = new Socket(serverName, JokeConsts.SERVER_CLIENT_PORT);
-            fromServer =
-                    new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            fromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             toServer = new PrintStream(sock.getOutputStream());
             toServer.println(name);
             toServer.flush();
